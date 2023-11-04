@@ -34,5 +34,14 @@ class DatabaseSeeder extends Seeder
             'deskripsi' => '-',
             'harga' => 11000,
         ]);
+
+        Products::create([
+            'nama' => 'Dompet',
+            'deskripsi' => '-',
+            'harga' => 65000,
+        ]);
+
+        // create product with faker 30 data
+        Products::factory(30)->create();
     }
 }

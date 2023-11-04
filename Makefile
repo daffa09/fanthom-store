@@ -16,5 +16,8 @@ migrate:
 npm-install:
 	./vendor/bin/sail npm install
 
+composer-install:
+	./vendor/bin/sail composer install
+
 run:
 	./vendor/bin/sail npm run dev
