@@ -4,8 +4,10 @@
 
         <div class="flex items-center justify-between" style="margin-top: 2rem">
             <h2 class="font-semibold text-xl">List Products</h2>
-            <button class="bg-gray-100 px-10 py-2 rounded-md font-semibold">Tambah</button>
-        </div>
+            <a href="{{ route('products.create') }}">
+                <button class="bg-gray-100 px-10 py-2 rounded-md font-semibold" >Add</button>
+            </a>
+            </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6" style="margin-top: 4rem">
             @foreach ($products as $product)
