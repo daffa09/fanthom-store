@@ -1,7 +1,11 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
+
+// Kemudian, Anda dapat mengakses kelas atau fungsi yang didefinisikan dalam namespace Auth.
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Definisikan konstanta untuk URL '/profile'
+define('PROFILE_URL', '/profile');
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -23,9 +30,12 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+
+    Route::get(PROFILE_URL, [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch(PROFILE_URL, [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete(PROFILE_URL, [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require_once __DIR__ . '/auth.php';
