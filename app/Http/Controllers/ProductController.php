@@ -23,14 +23,24 @@ class ProductController extends Controller
         $this->validate($request, [
             'nama' => 'required',
             'harga' => 'required|numeric',
+            'foto' => 'required|image|mimes:jpeg,png,jpg',
         ]);
+
+        $foto = $request->file('foto');
+        $foto->storeAs('public', $foto->hashName());
 
         Products::create([
             'nama' => $request->nama,
             'harga' => $request->harga,
             'deskripsi' => $request->deskripsi,
+            'foto' => $foto->hashName(),
         ]);
 
         return redirect()->route('products.index')->with('success', 'Add Product Succsess');
+    }
+
+    public function edit(Products $product)
+    {
+        return view('products.edit', compact('product'));
     }
 }
