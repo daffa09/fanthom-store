@@ -2,8 +2,9 @@
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 px-2">
 
-        <div class="flex" style="margin-top: 2rem">
-            <h2 class="font-semibold text-xl">Add Product</h2>
+        <div class="flex justify-between items-center" style="margin-top: 2rem">
+            <h2 class="font-semibold text-xl">Edit Product</h2>
+            @include('products.partials.delete-product')
         </div>
 
         <div class="mt-4" x-data="{ imageUrl: '/storage/{{ $product->foto }}' }">

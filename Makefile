@@ -19,5 +19,8 @@ npm-install:
 composer-install:
 	./vendor/bin/sail composer install
 
+storage-link:
+	./vendor/bin/sail php artisan storage:link
+
 run:
 	./vendor/bin/sail npm run dev

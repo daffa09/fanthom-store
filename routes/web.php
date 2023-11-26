@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/products', [ProductController::class, 'store'])->name('products.store');
     Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
     Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
+    Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 
     Route::get(PROFILE_URL, [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch(PROFILE_URL, [ProfileController::class, 'update'])->name('profile.update');

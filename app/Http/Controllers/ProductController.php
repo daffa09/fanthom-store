@@ -59,7 +59,9 @@ class ProductController extends Controller
         $product->deskripsi = $request->deskripsi;
 
         if ($request->file('foto')) {
-            Storage::disk('local')->delete('public/' . $product->foto);
+            if ($product->foto !== "noimage.png") {
+                Storage::disk('local')->delete('public/' . $product->foto);
+            }
             $foto = $request->file('foto');
             $foto->storeAs('public', $foto->hashName());
             $product->foto = $foto->hashName();
@@ -68,5 +70,15 @@ class ProductController extends Controller
         $product->update();
 
         return redirect()->route('products.index')->with('success', 'Update Product Succsess');
+    }
+
+    public function destroy(Products $product)
+    {
+        if ($product->foto !== "noimage.png") {
+            Storage::disk('local')->delete('public/' . $product->foto);
+        }
+        $product->delete();
+
+        return redirect()->route('products.index')->with('success', 'Delete Product Succsess');
     }
 }
