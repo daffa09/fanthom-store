@@ -2,7 +2,7 @@
 
 ## Fanthom Store
 
-Fanthom Store is a simple CRUD web application using laravel 10 and also using docker to run this application.
+Fanthom Store is a simple CRUD web application using laravel 10 and also using docker to run this application. And inspired by this repo https://github.com/afifbasya/tokokita-laravel
 
 ## TECH STACK
 
