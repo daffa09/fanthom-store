@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Products;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -22,7 +23,7 @@ class ProductController extends Controller
     {
         $this->validate($request, [
             'nama' => 'required',
-            'harga' => 'required|numeric',
+            'harga' => 'required',
             'foto' => 'required|image|mimes:jpeg,png,jpg',
         ]);
 
@@ -31,7 +32,7 @@ class ProductController extends Controller
 
         Products::create([
             'nama' => $request->nama,
-            'harga' => $request->harga,
+            'harga' => str_replace('.', '', $request->harga),
             'deskripsi' => $request->deskripsi,
             'foto' => $foto->hashName(),
         ]);
@@ -42,5 +43,30 @@ class ProductController extends Controller
     public function edit(Products $product)
     {
         return view('products.edit', compact('product'));
+    }
+
+    public function update(Request $request, Products $product)
+    {
+        // Validasi inputan
+        $this->validate($request, [
+            'nama' => 'required',
+            'harga' => 'required',
+        ]);
+
+
+        $product->nama = $request->nama;
+        $product->harga = str_replace('.', '', $request->harga);
+        $product->deskripsi = $request->deskripsi;
+
+        if ($request->file('foto')) {
+            Storage::disk('local')->delete('public/' . $product->foto);
+            $foto = $request->file('foto');
+            $foto->storeAs('public', $foto->hashName());
+            $product->foto = $foto->hashName();
+        }
+
+        $product->update();
+
+        return redirect()->route('products.index')->with('success', 'Update Product Succsess');
     }
 }
